@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Verypoppins/design-unit-converter/compare/v1.0.0...v1.1.0) (2025-11-20)
+
+
+### Features
+
+* añade funciones principales del conversor ([ebe397b](https://github.com/Verypoppins/design-unit-converter/commit/ebe397b909cb62602524a333cfd160588b2e5678))
+
 # 1.0.0 (2025-11-20)
 
 
