@@ -1,6 +1,6 @@
 {
   "name": "design-unit-converter",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Conversor simple de unidades de diseño web: px, rem, em, pt y mm",
   "main": "index.js",
   "bin": {

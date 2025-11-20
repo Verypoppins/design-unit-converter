@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/Verypoppins/design-unit-converter/compare/v1.3.0...v1.3.1) (2025-11-20)
+
+
+### Bug Fixes
+
+* **cli:** compatibilidad chalk ESM en CommonJS ([54cedf1](https://github.com/Verypoppins/design-unit-converter/commit/54cedf1e5c6cfebdba30ab518545eb2f875e3ab2))
+
 # [1.3.0](https://github.com/Verypoppins/design-unit-converter/compare/v1.2.0...v1.3.0) (2025-11-20)
 
 
