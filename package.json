@@ -1,7 +1,7 @@
 {
   "name": "design-unit-converter",
-  "version": "1.3.1",
-  "description": "Conversor simple de unidades de diseño web: px, rem, em, pt y mm",
+  "version": "1.3.0",
+  "description": "Conversor profesional de unidades de diseño web: px, rem, em, pt, %, mm, cm, in, vw, vh. Incluye CLI (duc).",
   "main": "index.js",
   "bin": {
     "duc": "./bin/cli.js"
@@ -10,17 +10,40 @@
     "test": "vitest"
   },
   "keywords": [
-    "design",
     "converter",
+    "design",
+    "css",
+    "units",
+    "frontend",
     "px",
     "rem",
     "em",
     "pt",
     "mm",
-    "css"
+    "cm",
+    "inch",
+    "in",
+    "vw",
+    "vh",
+    "percentage",
+    "cli",
+    "tool"
   ],
   "author": "Verypoppins <verarubiogurpegui28@gmail.com>",
   "license": "MIT",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Verypoppins/design-unit-converter.git"
+  },
+  "homepage": "https://github.com/Verypoppins/design-unit-converter",
+  "bugs": {
+    "url": "https://github.com/Verypoppins/design-unit-converter/issues"
+  },
+
+  "dependencies": {
+    "chalk": "^5.6.2"
+  },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^12.0.0",
@@ -30,8 +53,5 @@
     "@semantic-release/release-notes-generator": "^13.0.0",
     "semantic-release": "^24.2.9",
     "vitest": "^4.0.10"
-  },
-  "dependencies": {
-    "chalk": "^5.6.2"
   }
 }
