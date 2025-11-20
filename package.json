@@ -1,0 +1,27 @@
+{
+  "name": "design-unit-converter",
+  "version": "1.0.0",
+  "description": "Conversor simple de unidades de diseño web: px, rem, em y pt.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No test specified\""
+  },
+  "keywords": [
+    "design",
+    "converter",
+    "px",
+    "rem",
+    "em",
+    "pt",
+    "css"
+  ],
+  "author": "Vera",
+  "license": "MIT",
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.2",
+    "@semantic-release/npm": "^13.1.2",
+    "semantic-release": "^25.0.2"
+  }
+}
