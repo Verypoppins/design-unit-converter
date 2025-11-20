@@ -1,134 +1,116 @@
 #!/usr/bin/env node
 
-const chalk = require("chalk");
-const converter = require("../index.js");
+// Importar chalk (ESM) desde CommonJS
+let chalk;
+(async () => {
+  chalk = (await import("chalk")).default;
+  startCLI();
+})();
 
-// ============================
-//     COLORES Y ESTILOS
-// ============================
+// ============ CLI LOGIC ============
 
-const success = (msg) => console.log(chalk.green.bold(msg));
-const error = (msg) => console.log(chalk.red.bold("Error: ") + chalk.red(msg));
-const info = (msg) => console.log(chalk.cyan(msg));
+function startCLI() {
+  const converter = require("../index.js");
 
-// ============================
-//        HELP / USO
-// ============================
+  function showHelp() {
+    console.log(`
+${chalk.magenta.bold("✨ Design Unit Converter (duc)")}
+Convierte unidades de diseño web fácilmente.
 
-const showHelp = () => {
-  console.log(`
-${chalk.bold.magenta("Design Unit Converter CLI")}
+${chalk.cyan("USO:")}
+  duc <valor><unidad> --to <unidad_destino>
 
-Uso:
-  ${chalk.yellow("duc <valor><unidad> --to <unidad_destino>")}
-
-Ejemplos:
+${chalk.cyan("EJEMPLOS:")}
   duc 32px --to rem
-  duc 1.5rem --to px
-  duc 24px --to vw
-  duc 2cm --to px
+  duc 2.5rem --to px
+  duc 120px --to vw
+  duc 3cm --to px
+  duc 96px --to in
 
-Unidades soportadas:
+${chalk.cyan("UNIDADES SOPORTADAS:")}
   px, rem, em, %, pt, mm, cm, in, vw, vh
 
-Más info:
-  duc --help
+${chalk.cyan("AYUDA:")}
+  duc --help   Muestra esta ayuda
 `);
-};
+  }
 
-// Mostrar ayuda si se pide
-if (process.argv.includes("--help") || process.argv.includes("-h")) {
-  showHelp();
-  process.exit(0);
+  // Si el usuario pide help
+  if (process.argv.includes("--help") || process.argv.includes("-h")) {
+    showHelp();
+    process.exit(0);
+  }
+
+  const args = process.argv.slice(2);
+
+  if (args.length === 0) {
+    console.log(chalk.red("❌ Error: Debes introducir un valor."));
+    console.log("Ejemplo: duc 32px --to rem");
+    process.exit(1);
+  }
+
+  const input = args[0];
+  const toIndex = args.indexOf("--to");
+
+  if (toIndex === -1) {
+    console.log(chalk.red("❌ Error: Falta el parámetro --to"));
+    console.log("Ejemplo: duc 32px --to rem");
+    process.exit(1);
+  }
+
+  const targetUnit = args[toIndex + 1];
+  if (!targetUnit) {
+    console.log(chalk.red("❌ Error: Debes especificar la unidad destino."));
+    process.exit(1);
+  }
+
+  const match = input.match(/([\d.]+)(px|rem|em|pt|mm|cm|in|vw|vh|%)/i);
+
+  if (!match) {
+    console.log(chalk.red("❌ Formato inválido."));
+    console.log("Ejemplo válido: 32px, 1.5rem, 50%, 2cm, 96px…");
+    process.exit(1);
+  }
+
+  const value = parseFloat(match[1]);
+  const unit = match[2].toLowerCase();
+
+  const conversions = {
+    "px:rem": converter.pxToRem,
+    "rem:px": converter.remToPx,
+    "px:em": converter.pxToEm,
+    "em:px": converter.emToPx,
+    "px:%": converter.pxToPercent,
+    "%:px": converter.percentToPx,
+    "px:pt": converter.pxToPt,
+    "pt:px": converter.ptToPx,
+    "px:mm": converter.pxToMm,
+    "mm:px": converter.mmToPx,
+    "px:cm": converter.pxToCm,
+    "cm:px": converter.cmToPx,
+    "px:in": converter.pxToIn,
+    "in:px": converter.inToPx,
+    "px:vw": converter.pxToVw,
+    "vw:px": converter.vwToPx,
+    "px:vh": converter.pxToVh,
+    "vh:px": converter.vhToPx,
+  };
+
+  const route = `${unit}:${targetUnit}`;
+
+  if (!conversions[route]) {
+    console.log(chalk.red(`❌ Conversión no soportada: ${unit} → ${targetUnit}`));
+    console.log("Usa: duc --help");
+    process.exit(1);
+  }
+
+  try {
+    const result = conversions[route](value);
+    console.log(chalk.green.bold(`✔ Resultado: ${result}${targetUnit}`));
+  } catch (err) {
+    console.log(chalk.red("❌ Error interno durante la conversión."));
+    console.error(err);
+    process.exit(1);
+  }
 }
-
-// ============================
-//      OBTENER ARGUMENTOS
-// ============================
-
-const args = process.argv.slice(2);
-
-if (args.length === 0) {
-  error("Debes introducir un valor.");
-  info("Ejemplo: duc 32px --to rem");
-  process.exit(1);
-}
-
-const input = args[0];
-const toIndex = args.indexOf("--to");
-
-if (toIndex === -1) {
-  error("Falta el argumento '--to'.");
-  info("Ejemplo: duc 32px --to rem");
-  process.exit(1);
-}
-
-const targetUnit = args[toIndex + 1];
-
-if (!targetUnit) {
-  error("Debes indicar la unidad destino.");
-  process.exit(1);
-}
-
-// ============================
-//  SEPARAR NÚMERO + UNIDAD
-// ============================
-
-const match = input.match(/([\d.]+)(px|rem|em|pt|mm|cm|in|vw|vh|%)/i);
-
-if (!match) {
-  error("Formato de entrada no válido.");
-  info("Ejemplo aceptado: 32px, 1.5rem, 50%, 2cm...");
-  process.exit(1);
-}
-
-const value = parseFloat(match[1]);
-const unit = match[2].toLowerCase();
-
-// ============================
-//       TABLA DE RUTAS
-// ============================
-
-const conversions = {
-  "px:rem": converter.pxToRem,
-  "rem:px": converter.remToPx,
-
-  "px:em": converter.pxToEm,
-  "em:px": converter.emToPx,
-
-  "px:%": converter.pxToPercent,
-  "%:px": converter.percentToPx,
-
-  "px:pt": converter.pxToPt,
-  "pt:px": converter.ptToPx,
-
-  "px:mm": converter.pxToMm,
-  "mm:px": converter.mmToPx,
-
-  "px:cm": converter.pxToCm,
-  "cm:px": converter.cmToPx,
-
-  "px:in": converter.pxToIn,
-  "in:px": converter.inToPx,
-
-  "px:vw": converter.pxToVw,
-  "vw:px": converter.vwToPx,
-
-  "px:vh": converter.pxToVh,
-  "vh:px": converter.vhToPx,
-};
-
-// ============================
-//      EJECUTAR CONVERSIÓN
-// ============================
-
-const route = `${unit}:${targetUnit}`;
-
-if (!conversions[route]) {
-  error(`Conversión no soportada: ${unit} → ${targetUnit}`);
-  process.exit(1);
-}
-
-try {
-  const result = conversions[route](value)
 
