@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Verypoppins/design-unit-converter/compare/v1.1.0...v1.2.0) (2025-11-20)
+
+
+### Features
+
+* añade CLI y README profesional al paquete ([386fd1f](https://github.com/Verypoppins/design-unit-converter/commit/386fd1f2a5dab8c9677306777b8615e8e3c71840))
+
 # [1.1.0](https://github.com/Verypoppins/design-unit-converter/compare/v1.0.0...v1.1.0) (2025-11-20)
 
 
