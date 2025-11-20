@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/Verypoppins/design-unit-converter/compare/v1.2.0...v1.3.0) (2025-11-20)
+
+
+### Bug Fixes
+
+* guarda cambios locales antes del rebase ([31dd0cd](https://github.com/Verypoppins/design-unit-converter/commit/31dd0cd290c203f31bba444b17c42cc31461c4c7))
+
+
+### Features
+
+* **cli:** CLI profesional con colores, help y nuevas unidades ([37e7a33](https://github.com/Verypoppins/design-unit-converter/commit/37e7a33fd2c4a4173edf231a8ce474b8a41b58a0))
+
 # [1.2.0](https://github.com/Verypoppins/design-unit-converter/compare/v1.1.0...v1.2.0) (2025-11-20)
 
 
