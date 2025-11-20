@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/Verypoppins/design-unit-converter/compare/v1.3.2...v1.3.3) (2025-11-20)
+
+
+### Bug Fixes
+
+* force new release without email metadata ([980d81c](https://github.com/Verypoppins/design-unit-converter/commit/980d81ce0c97a0f9f55ea6964e7d3c35b70774d1))
+
 ## [1.3.1](https://github.com/Verypoppins/design-unit-converter/compare/v1.3.0...v1.3.1) (2025-11-20)
 
 
